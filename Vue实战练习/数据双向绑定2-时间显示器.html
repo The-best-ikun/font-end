@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>时间显示器</title>
+</head>
+<body>
+    <div id="app">
+        <h1>现在的时间是{{date}}<h1>
+    </div>
+</body>
+<script src="./vue.js"></script>
+<script>
+    new Vue ({
+        el:"#app",
+        data: {
+            date:new Date()
+        },
+
+        //生命周期的一个阶段
+        mounted:function(){
+                var _this=this;//指向Vue实例，保证作用域一致
+                this.timer = setInterval(function(){
+                    _this.date=new Date()
+                },1000)
+                // 每秒修改一次数据
+        },
+
+        beforeDestroy:function(){
+            if(this.timer){
+                //在实例销毁前清理定时器
+                clearInterval(this.timer);
+
+            }
+        }
+
+    })
+    
+
+// timer 是 Vue 实例的一个属性，被定义在 data 对象里。它的作用是存储 setInterval 创建的定时器的 ID。这个 ID 可以用于后续清除定时器（使用 clearInterval 函数）。
+// 在 Vue 实例的 mounted 生命周期钩子中，你创建了一个定时器，并把这个定时器的 ID 赋值给了 timer。
+// setInterval:
+
+// setInterval 是一个 JavaScript 的内置函数，它接受两个参数：一个是要周期性执行的函数，另一个是每次执行之间的时间间隔（以毫秒为单位）。
+// 在你的代码中，setInterval 每隔 1000 毫秒（即 1 秒）就执行一次匿名函数 function(){ _this.date = new Date() }。这个匿名函数的作用是更新 Vue 实例的 date 属性为当前时间。
+// setInterval 函数会返回一个定时器 ID，这个 ID 可以用于之后通过 clearInterval 函数来停止或清除这个定时器。
+</script>

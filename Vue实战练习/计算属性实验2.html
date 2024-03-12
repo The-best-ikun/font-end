@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>计算属性的setter和getter</title>
+</head>
+<body>
+    <div id="app">
+        姓名是{{fullName}}
+    </div>
+
+</body>
+<!-- 引进Vue.js文件 -->
+<script src="./vue.js"></script>
+
+<!-- 创建Vue实例 -->
+<script>
+    new Vue({
+        // 绑定元素
+        el:'#app' ,
+
+        data:{
+            firstname:'luo',
+            lastname:'budiu'
+            
+        },
+        computed:{
+            fullName:{
+                //getter函数程序自动调用，但我们可以进行覆盖重写
+                get:function(){
+                    return this.firstname+'--'+this.lastname;
+                },
+                //setter函数程序自动调用，但我们可以进行覆盖重写
+                set:function(newValue){
+                    var names = newValue.spilt('--');
+                    this.firstname=names[0];
+                    this.lastname=names[names.length-1];
+                }
+            }
+        }
+    })
+</script>
+
+
+
+
+
+</html>

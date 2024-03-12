@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<!-- 当网速较慢时，没有成功加载Vue.js，可能会出现插值符号，也就是两个大括号，这时可以用v-cloak指令去解决-->
+<head>
+    <meta charset="utf-8">
+    <title>v-cloak</title>
+
+    <style>
+        /* 这个是关键，加了指令还得加这个才管用 */
+        [v-cloak]{
+            display:none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <h1>{{message}}</h1>
+    </div>
+</body>
+<script src="./vue.js"></script>
+<script>
+    new Vue({
+        el:'#app',
+        data:{
+            message:'你好'
+        }
+    })
+</script>

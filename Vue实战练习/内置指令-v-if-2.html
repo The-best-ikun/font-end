@@ -1,0 +1,38 @@
+<!-- Vue在渲染组件或者元素时，优先复用已有元素而非全部重新渲染，而如果我就是想程序不复用的
+话，可以用key来控制 -->
+
+<!-- 这里加入了key值后就不会复用input元素了，但label还是会复用的 -->
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>v-cloak</title>   
+</head>
+
+<body>
+    <div id="app">
+        <template v-if="type === 'name'">
+            <label>用户名：</label>
+            <input placeholder="输入用户名" key="name-input">
+        </template>
+        <template v-else>
+            <label>邮箱名：</label>
+            <input placeholder="输入邮箱名" key="mail-input">
+        </template>
+        <button @click="handleToggleClick">点击该键切换状态</button>
+
+    </div>
+</body>
+<script src="./vue.js"></script>
+<script>
+    new Vue({
+        el:'#app',
+        data:{
+            type:'name'
+        },
+        methods:{
+            handleToggleClick:function(){
+                this.type=this.type==='name'?'mail':'name';
+            }
+        }
+    })
+</script>

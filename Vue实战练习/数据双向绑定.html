@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>数据双向绑定</title>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="name"  placeholder="请输入你的用户名">
+        <!-- 显式声明数据 -->
+        
+        <h1>你好啊！！{{name}}</h1>
+        
+    
+    </div>
+</body>
+<script src="./vue.js"></script>
+<script>
+    var myData = {
+        a: 1
+    }
+
+    var app = new Vue({
+        el:"#app",
+        // 这里也可以用JS的DOM操作去获得该元素，一个Vue实例只能绑定一个对象
+        // 挂载成功后，我们可以通过app.$el
+        // Vue很多的实例属性和方法都会以美元符号开头的，之后会遇到
+        data:{
+            name:"李四",
+
+            // 隐式双向绑定
+            myData
+        }
+    })
+   // 打印app实例中myData.a的值，这应该是1  
+   console.log(app.myData.a); // 输出: 1  
+  
+    // 修改app实例中myData.a的值  
+    app.myData.a = 2;  
+
+    // 再次打印app实例中myData.a的值，这应该是2  
+    console.log(app.myData.a); // 输出: 2  
+
+    // 由于myData是响应式的，myData.a的值也会被更新  
+    console.log(myData.a); // 输出: 2  
+
+    // 修改原始myData对象中的a值  
+    myData.a = 3;  
+
+    // 由于myData.a是响应式的，app实例中的myData.a的值也会被更新  
+    console.log(app.myData.a); // 输出: 3  
+           
+
+</script>
+

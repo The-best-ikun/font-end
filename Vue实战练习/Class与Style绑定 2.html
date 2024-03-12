@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>绑定类</title>
+</head>
+<body>
+    <div id="app">
+        
+        <a :href="url"> Github的链接 </a>
+        <!-- 如果isActive是true的话，而isError的值为false的话，error这个类名就不会加上去，最后就是class="static active" -->
+        <h2 class= "static"  :class="{'active':isActive,'error':isError}">被绑定的类</h2>
+
+        <!-- 试着用数组绑定类 -->
+        <h3 :class="[activeCls,errorCls]">你好啊！！</h3>
+    </div>
+
+</body>
+
+<script src="./vue.js"></script>
+<script>
+    new Vue({
+        el:'#app',
+        data:{
+            url:'http://www.github.com',
+            isActive:true,
+            isError:false,
+            activeCls:'active',
+            errorCls:'error'
+            
+        }
+
+    })
+</script>

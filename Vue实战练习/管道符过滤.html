@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>时间显示器(管道符过滤改进)</title>
+    <!-- 格式化输出时间 -->
+</head>
+<body>
+    <div id="app">
+        <h1>现在的时间是{{date| formDate}}<h1>
+    </div>
+</body>
+<script src="./vue.js"></script>
+<script>
+    var padDate=function(value){
+        // 将不满两位数的前面添加0
+        return value < 10? '0'+value:value;
+
+    };
+
+    var app = new Vue ({
+        el:"#app",
+        data: {
+            date:new Date()
+        },
+        filters:{
+            formDate:function(value){//value指要过滤的数据
+                var date=new Date(value);
+                var year=date.getFullYear();
+                var month=padDate(date.getMonth()+1)
+                var day=padDate(date.getDay());
+                var hours=padDate(date.getHours());
+                var minutes=padDate(date.getMinutes());
+                var seconds=padDate(date.getSeconds());
+                return year+'-'+month+'-'+day+'-'+hours+":"+minutes+':'+seconds;
+
+            }
+        },
+
+        //生命周期的一个阶段
+        mounted:function(){
+                var _this=this;//指向Vue实例，保证作用域一致
+                this.timer = setInterval(function(){
+                    _this.date=new Date()
+                },1000)
+                // 每秒修改一次数据
+        },
+
+        beforeDestroy:function(){
+            if(this.timer){
+                //在实例销毁前清理定时器
+                clearInterval(this.timer);
+
+            }
+        }
+    })
+    // 过滤器可以串联，形成多层过滤
+    //{{message | filterA  | filterB  }}
+    //接受参数
+    //{{message | filterA('arg1','arg2')}}
+    
+    
+
+
+</script>
